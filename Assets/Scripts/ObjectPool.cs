@@ -45,6 +45,9 @@ public class ObjectPool : MonoBehaviour
 
     public int poolSize = 10;
     public float spawnInterval = 1.5f;
+    
+    private float originalSpawnInterval; // Store original for turbo boost
+    private bool turboBoostActive = false;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
     private Queue<GameObject> obstaclePool = new Queue<GameObject>();
@@ -108,6 +111,7 @@ public class ObjectPool : MonoBehaviour
         // Initialize spawn rate
         currentObstacleSpawnInterval = obstacleSpawnInterval;
         nextSpawnRateIncrease = spawnRateIncreaseInterval;
+        originalSpawnInterval = spawnInterval; // Store for turbo boost
         
         Debug.Log($"[ObjectPool] Starting with {activeObstaclePrefabs.Count} early obstacle types");
         
@@ -430,6 +434,23 @@ public class ObjectPool : MonoBehaviour
         {
             obj.SetActive(false);
             pool.Enqueue(obj);
+        }
+    }
+
+    // Method to enable/disable turbo boost mode (2x spawn rate)
+    public void SetTurboBoostMode(bool active)
+    {
+        turboBoostActive = active;
+        
+        if (active)
+        {
+            spawnInterval = originalSpawnInterval / 2f; // Double spawn rate
+            Debug.Log($"[ObjectPool] Turbo boost ON! Food spawn rate: {spawnInterval}s (2x faster)");
+        }
+        else
+        {
+            spawnInterval = originalSpawnInterval; // Restore original
+            Debug.Log($"[ObjectPool] Turbo boost OFF! Food spawn rate restored to: {spawnInterval}s");
         }
     }
 

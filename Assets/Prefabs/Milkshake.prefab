@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   offScreenX: -15
+  pointValue: 6
 --- !u!50 &4962362284144512815
 Rigidbody2D:
   serializedVersion: 4

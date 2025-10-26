@@ -11,6 +11,7 @@ public class BusController : MonoBehaviour
     public float baseSpeed = 4f;
     public float maxSpeed = 5f;
     public float speedIncreasePerTank = 0.2f; // (5 - 4) / 5 = 0.2 per tank
+    public float turboBoostSpeed = 6f; // Speed during turbo boost
 
     [Header("Health System")]
     public bool isInvulnerable = false;
@@ -22,6 +23,9 @@ public class BusController : MonoBehaviour
     private Rigidbody2D rb;
     private float invulnerabilityTimer = 0f;
     private int gasTanksCollected = 0;
+    private Vector3 originalScale;
+    private bool isTurboBoostActive = false;
+    private float speedBeforeTurbo; // Store speed before turbo boost
 
     // Movement boundaries
     private float minX = -7.46f;
@@ -33,6 +37,7 @@ public class BusController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = baseSpeed; // Start at base speed
+        originalScale = transform.localScale; // Store original scale
         Debug.Log("Bus Controller started - health managed by HealthManager");
         Debug.Log($"[BusController] Starting speed: {moveSpeed}, Max speed: {maxSpeed}");
     }
@@ -105,7 +110,8 @@ public class BusController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isInvulnerable) return;
+        // Can't take damage during turbo boost or invulnerability
+        if (isInvulnerable || isTurboBoostActive) return;
 
         // Tell the health manager to handle damage
         if (healthManager != null)
@@ -118,6 +124,54 @@ public class BusController : MonoBehaviour
         // Set invulnerability
         isInvulnerable = true;
         invulnerabilityTimer = invulnerabilityTime;
+    }
+    
+    // Activate turbo boost - scale up and become invulnerable
+    public void ActivateTurboBoost(float scaleMultiplier)
+    {
+        isTurboBoostActive = true;
+        isInvulnerable = true;
+        
+        // Store current speed and boost to turbo speed
+        speedBeforeTurbo = moveSpeed;
+        moveSpeed = turboBoostSpeed;
+        
+        // Scale up the player
+        StartCoroutine(ScaleToSize(originalScale * scaleMultiplier, 0.5f));
+        
+        Debug.Log($"[BusController] Turbo boost activated! Scaling to {scaleMultiplier}x, Speed: {moveSpeed}");
+    }
+    
+    // Deactivate turbo boost - scale back down
+    public void DeactivateTurboBoost()
+    {
+        isTurboBoostActive = false;
+        isInvulnerable = false;
+        
+        // Restore speed from before turbo
+        moveSpeed = speedBeforeTurbo;
+        
+        // Scale back to original
+        StartCoroutine(ScaleToSize(originalScale, 0.5f));
+        
+        Debug.Log($"[BusController] Turbo boost deactivated! Scaling back to normal, Speed: {moveSpeed}");
+    }
+    
+    // Coroutine to smoothly scale the player
+    System.Collections.IEnumerator ScaleToSize(Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = transform.localScale;
+        float elapsed = 0f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            yield return null;
+        }
+        
+        transform.localScale = targetScale;
     }
 
     // Health is now managed by HealthManager script

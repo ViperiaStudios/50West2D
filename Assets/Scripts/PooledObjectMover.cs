@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PooledObjectMover : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 7f;
-    // Adjust this value in the Inspector. Make it more negative to ensure objects are well off-screen.
-    // A value of -15f or -20f is often safer than -11f to account for object width.
     public float offScreenX = -15f;
+    
+    [Header("Scoring")]
+    public int pointValue = 4; // How many points this food item is worth
 
     private ObjectPool pool;
     private EffectPool effectPool; // Assuming you have an EffectPool for visual effects
     private float timeAlive; // Tracks how long the object has been active
+    private float originalMoveSpeed; // Store original speed for turbo boost
+    private bool turboBoostActive = false;
 
     // Initialize is called by the ObjectPool when an object is taken from the pool
     public void Initialize(ObjectPool objectPool)
@@ -28,6 +32,13 @@ public class PooledObjectMover : MonoBehaviour
     void OnEnable()
     {
         timeAlive = 0f; // Reset the timeAlive counter
+        
+        // Store original speed when first enabled
+        if (originalMoveSpeed == 0)
+        {
+            originalMoveSpeed = moveSpeed;
+        }
+        
         // Debug.Log statement to track when objects are enabled/activated
         Debug.Log($"[PooledObjectMover] Object {gameObject.name} ENABLED at position {transform.position}");
     }
@@ -36,8 +47,19 @@ public class PooledObjectMover : MonoBehaviour
     {
         timeAlive += Time.deltaTime; // Increment time alive
 
-        // Move the object to the left based on moveSpeed
-        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+        // Check if turbo boost is active and apply speed
+        float currentSpeed = moveSpeed;
+        if (TurboBoostManager.Instance != null && TurboBoostManager.Instance.IsBoostActive())
+        {
+            currentSpeed = originalMoveSpeed * 2f; // Double speed during turbo
+        }
+        else
+        {
+            currentSpeed = originalMoveSpeed; // Normal speed
+        }
+
+        // Move the object to the left based on current speed
+        transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
 
         // Check if the object has moved far enough off-screen to the left
         if (transform.position.x <= offScreenX)
@@ -54,13 +76,13 @@ public class PooledObjectMover : MonoBehaviour
         // Check if the other collider has the "Player" tag
         if (other.CompareTag("Player"))
         {
-            // Assuming ScoreManager.Instance exists and has an AddPoints method
+            // Add points based on this object's point value
             if (ScoreManager.Instance != null)
             {
-                ScoreManager.Instance.AddPoints(4);
+                ScoreManager.Instance.AddPoints(pointValue);
             }
             // Debug.Log statement to track when objects are returned due to collision
-            Debug.Log($"[PooledObjectMover] Object {gameObject.name} returned to pool: Collided with Player ({other.gameObject.name})");
+            Debug.Log($"[PooledObjectMover] Object {gameObject.name} collected for {pointValue} points!");
             ReturnToPool(); // Return the object to the pool after collision
         }
     }
@@ -126,4 +148,5 @@ public class PooledObjectMover : MonoBehaviour
 
         // Add any other specific resets for your object's state (e.g., health, animation state)
     }
+    
 }

@@ -14,6 +14,7 @@ public class FuelBarManager : MonoBehaviour
     public Color fullColor = Color.green;
     
     private int currentFuelTanks = 0;
+    private bool boostActive = false; // Whether turbo boost is currently active
     
     void Start()
     {
@@ -23,6 +24,13 @@ public class FuelBarManager : MonoBehaviour
     
     public void AddFuel()
     {
+        // Don't add fuel during turbo boost
+        if (boostActive)
+        {
+            Debug.Log("[FuelBarManager] Cannot collect fuel during turbo boost!");
+            return;
+        }
+        
         if (currentFuelTanks < maxFuelTanks)
         {
             currentFuelTanks++;
@@ -113,6 +121,19 @@ public class FuelBarManager : MonoBehaviour
         currentFuelTanks = 0;
         UpdateFuelBar();
         Debug.Log("[FuelBarManager] Fuel bar reset!");
+    }
+    
+    // Method to enable/disable boost mode (prevents fuel collection during boost)
+    public void SetBoostActive(bool active)
+    {
+        boostActive = active;
+        Debug.Log($"[FuelBarManager] Boost active set to: {active}");
+    }
+    
+    // Check if fuel can be collected
+    public bool CanCollectFuel()
+    {
+        return !boostActive;
     }
 }
 
