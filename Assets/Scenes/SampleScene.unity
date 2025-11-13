@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 178813418}
   - component: {fileID: 178813417}
   m_Layer: 5
-  m_Name: Button
+  m_Name: turbo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 346625297}
   - component: {fileID: 346625296}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: turboText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -766,7 +766,7 @@ RectTransform:
   m_GameObject: {fileID: 346625294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.5, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 178813416}
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: TURBO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1911,11 +1911,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turboButton: {fileID: 178813417}
+  turboText: {fileID: 346625296}
   fuelBarManager: {fileID: 747735542}
   busController: {fileID: 180234757}
   objectPool: {fileID: 1082329283}
   boostDuration: 10
   playerScaleMultiplier: 2.2
+  yellowThreshold: 0.6
+  redThreshold: 0.99
+  greenTintColor: {r: 0.3, g: 1, b: 0.3, a: 1}
+  yellowTintColor: {r: 1, g: 0.95, b: 0.2, a: 1}
+  redTintColor: {r: 1, g: 0.3, b: 0.3, a: 1}
+  disabledTintColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  greenTintStrength: 0.35
+  yellowTintStrength: 0.35
+  redTintStrength: 0.5
+  disabledTintStrength: 0.45
+  turboTextFlashInterval: 0.4
 --- !u!4 &1345918480
 Transform:
   m_ObjectHideFlags: 0
