@@ -18,6 +18,8 @@ Mobile **2D** Unity game for a local brewery.
 2. Open the project folder in **Unity Hub** with the editor version above.
 3. Open **`Assets/Scenes/SampleScene.unity`** (or your current main scene) and press **Play**.
 
+**Tip:** Use the **Game** view with a mobile aspect ratio to sanity-check layout before device builds.
+
 ## Project layout (high level)
 
 | Path | Notes |
@@ -33,6 +35,7 @@ Log **why** you pushed when it matters for others or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-03-24 | README: Game view / mobile aspect tip for layout checks. |
 | 2026-03-19 | README: repo link, clone command, default scene path, project layout table. |
 | 2026-03-18 | README expanded: Unity version, setup, and git update log. |
 
