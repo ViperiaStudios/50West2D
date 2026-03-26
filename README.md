@@ -31,7 +31,7 @@ Mobile **2D** Unity game for a local brewery.
 
 ## Git updates
 
-Log **why** you pushed when it matters for others or future you.
+Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
