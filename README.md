@@ -35,6 +35,7 @@ Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-03-28 | README: minor maintenance. |
 | 2026-03-24 | README: Game view / mobile aspect tip for layout checks. |
 | 2026-03-19 | README: repo link, clone command, default scene path, project layout table. |
 | 2026-03-18 | README expanded: Unity version, setup, and git update log. |
