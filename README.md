@@ -35,6 +35,7 @@ Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-04-11 | README: changelog line. |
 | 2026-04-09 | README: note. |
 | 2026-04-08 | README: doc touch-up. |
 | 2026-04-07 | README: housekeeping. |
