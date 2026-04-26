@@ -35,6 +35,7 @@ Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-04-25 | README: minor adjustment. |
 | 2026-04-22 | README: update git log. |
 | 2026-04-21 | README: minor doc touch. |
 | 2026-04-14 | README: small adjustment. |
