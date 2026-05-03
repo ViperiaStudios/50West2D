@@ -35,6 +35,7 @@ Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-05-03 | README: minor update. |
 | 2026-05-02 | README: doc sync. |
 | 2026-04-30 | README: sync log row. |
 | 2026-04-26 | README: minor adjustment. |
