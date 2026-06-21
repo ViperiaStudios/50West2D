@@ -35,6 +35,7 @@ Log **why** you pushed when it matters for others, or future you.
 
 | Date       | Summary |
 | ---------- | ------- |
+| 2026-06-17 | README: set repo git email to studioviperia@gmail.com. |
 | 2026-06-17 | README: ViperiaStudios repo sync. |
 | 2026-06-12 | README: log refresh. |
 | 2026-06-11 | README: log refresh. |
